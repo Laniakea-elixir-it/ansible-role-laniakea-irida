@@ -1,0 +1,38 @@
+---
+
+- name: Install IRIDA dependencies
+  apt:
+    name:
+      - openjdk-11-jdk
+      - tomcat8
+      - libtcnative-1
+      - mariadb-server
+      - python3-mysqldb
+    state: present
+
+# Create IRIDA file trees and create config files
+- include_tasks: irida_files.yml
+
+# Grant privileges and create database
+- include_tasks: irida_database.yml
+
+- name: Set environment variables for tomcat8 Servlet container
+  template:
+    dest: tomcat_conf_file
+    src: tomcat8.j2
+  notify: Restart mysql
+
+- name: Edit server.xml file for tomcat8
+  template:
+    dest: /etc/tomcat8/server.xml
+    src: server.xml.j2
+
+- name: Download IRIDA .war file
+  get_url:
+    url: "{{ irida_war_url }}"
+    dest: "{{ tomcat_webapps }}/irida.war"
+    owner: tomcat8
+    group: tomcat8
+  notify: Restart tomcat8
+
+- include_tasks: nginx.yml

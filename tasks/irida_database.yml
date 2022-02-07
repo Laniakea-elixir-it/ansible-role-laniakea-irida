@@ -1,0 +1,49 @@
+---
+
+# Solve error: liquibase.exception.DatabaseException: Specified key was too long; max key length is 767 bytes
+# This error occurs in Ubuntu. Modification of MariaDB configuration files is required:
+- name: Edit 50-mysql-clients.cnf
+  lineinfile:
+    path: "/etc/mysql/mariadb.conf.d/50-mysql-clients.cnf"
+    regexp: "^default-character-set\\s*=.*"
+    line: "default-character-set = utf8"
+    state: present
+    insertafter: EOF
+
+- name: Edit 50-client.cnf
+  lineinfile:
+    path: "/etc/mysql/mariadb.conf.d/50-client.cnf"
+    regexp: "^default-character-set\\s*=.*"
+    line: "default-character-set = utf8"
+    state: present
+    insertafter: EOF
+
+- name: Edit 50-server.cnf
+  lineinfile:
+    path: "/etc/mysql/mariadb.conf.d/50-server.cnf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    insertafter: EOF
+  with_items: 
+    - { regexp: "^character-set-server\\s*=.*", line: "character-set-server = utf8" }
+    - { regexp: "^collation-server\\s*=.*", line: "collation-server = utf8_general_ci"}
+  notify: Restart mysql
+
+- name: Flush handlers, restart mysql
+  meta: flush_handlers
+
+- name: Grant privileges on irida db to irida user
+  mysql_user:
+    name: "irida"
+    password: "irida"
+    priv: "irida.*:ALL"
+    host: "localhost"
+    state: present
+  no_log: true
+    
+- name: Create the irida database
+  mysql_db:
+    name: "irida"
+    state: present
+  notify: Restart mysql

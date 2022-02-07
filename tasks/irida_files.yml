@@ -1,0 +1,33 @@
+---
+
+- name: Create IRIDA file tree
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: tomcat8
+    group: tomcat8
+  with_items:
+    - "{{ irida_dir }}"
+    - "{{ irida_data }}"
+    - "{{ irida_sequencing }}"
+    - "{{ irida_reference }}"
+    - "{{ irida_analysis }}"
+    - "{{ irida_snapshot }}"
+    - "{{ irida_assembly }}" 
+    - "{{ irida_snapshot }}"
+
+- name: Create /etc/irida file tree
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ irida_conf_dir }}"
+    - "{{ irida_analytics }}"
+
+- name: Edit irida.conf and web.conf files
+  template:
+    dest: "{{ item.dest }}"
+    src: "{{ item.src }}"
+  with_items:
+   - { dest: "{{ irida_conf_dir }}/irida.conf", src: "irida.conf.j2" }
+   - { dest: "{{ irida_conf_dir }}/web.conf", src: "web.conf.j2" }

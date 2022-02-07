@@ -1,0 +1,9 @@
+---
+
+- include_tasks: volume_setup.yml
+
+- include_tasks: galaxy_docker.yml
+  #when: "'galaxy' in group_names or irida_role == 'galaxy'"
+
+- include_tasks: deploy_irida.yml
+  #when: "'irida' in group_names or irida_role == 'irida'"

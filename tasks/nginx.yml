@@ -1,0 +1,12 @@
+---
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Configure nginx
+  template:
+    dest: /etc/nginx/nginx.conf
+    src: nginx.conf.j2
+  notify: Restart nginx

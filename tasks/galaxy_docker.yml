@@ -1,0 +1,26 @@
+---
+
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Create docker image directory
+  file:
+    path: "{{ docker_dir }}"
+    state: directory
+    mode: "775"
+
+- name: Install docker with image directory on volume
+  include_role:
+    name: indigo-dc.docker
+  vars:
+    docker_config:  { "data-root": "{{ docker_dir }}" }
+
+- name: Run galaxy container
+  docker_container:
+    name: "{{ galaxy_docker_name }}"
+    image: "{{ galaxy_docker_image }}"
+    detach: true
+    state: started
+    published_ports: "{{ docker_ports_mapping }}"
+    volumes: "{{ docker_volume_mapping }}"

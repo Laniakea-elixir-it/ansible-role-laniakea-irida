@@ -1,0 +1,19 @@
+---
+# handlers file for IRIDA-galaxy
+
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
+
+- name: Restart tomcat8
+  service:
+    name: tomcat8
+    state: restarted
+    enabled: yes
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

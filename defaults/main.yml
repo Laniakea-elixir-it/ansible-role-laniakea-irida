@@ -1,0 +1,84 @@
+---
+#irida_role: "" # "galaxy" or "irida"
+
+# Volume setup variables
+device: "/dev/vdb"
+fstype: ext4
+volume_mountpoint: "/export"
+irida_dir: "{{ volume_mountpoint }}/irida"
+docker_dir: "{{ volume_mountpoint }}/docker_images"
+
+# Galaxy docker variables
+galaxy_port: "48888"
+galaxy_docker_name: galaxy-irida-20.09
+galaxy_docker_image: "phacnml/galaxy-irida-20.09"
+docker_ports_mapping: "{{ galaxy_port }}:80"
+docker_volume_mapping: "{{ irida_dir }}:{{ irida_dir }}"
+
+# IRIDA directories
+irida_data: "{{ irida_dir }}/data"
+irida_sequencing: "{{ irida_data }}/sequencing"
+irida_reference: "{{ irida_data }}/reference"
+irida_analysis: "{{ irida_data }}/analysis"
+irida_assembly: "{{ irida_data }}/assembly"
+irida_snapshot: "{{ irida_data }}/snapshot"
+
+irida_conf_dir: "/etc/irida"
+irida_analytics: "{{ irida_conf_dir }}/analytics"
+irida_plugins: "{{ irida_conf_dir }}/plugins"
+
+## irida.conf file variables
+irida_conf_url: "https://phac-nml.github.io/irida-documentation/administrator/web/config/irida.conf"
+
+irida_conf_params:
+  # Directories to store files managed by IRIDA
+  sequence_file_base_directory: "{{ irida_sequencing }}"
+  reference_file_base_directory: "{{ irida_reference }}"
+  output_file_base_directory: "{{ irida_analysis }}"
+  assembly_file_base_directory: "{{ irida_assembly }}"
+  snapshot_file_base_directory: "{{ irida_snapshot }}"
+  pipeline_plugin_path: "{{ irida_plugins }}"
+  # Threads used for file processing
+  file_processing_core_size: 4
+  file_processing_max_size: 4
+  file_processing_queue_capacity: 512
+  file_processing_process: "true"
+  # Database connection information
+  spring_datasource_url: "jdbc:mysql://127.0.0.1:3306/irida"
+  spring_datasource_username: irida
+  spring_datasource_password: irida
+  # Galaxy connection information
+  galaxy_execution_url: "http://localhost:{{ galaxy_port }}/"
+  galaxy_execution_apiKey: xxxx
+  galaxy_execution_email: user@localhost
+  galaxy_library_upload_timeout: 3600
+  irida_workflow_max_running: 4
+  irida_workflow_analysis_threads: 4
+
+
+## web.conf file variables
+irida_web_conf_url: "https://phac-nml.github.io/irida-documentation/administrator/web/config/web.conf"
+
+irida_port: "8080"
+irida_web_conf_params:
+  server_base_url: "http://127.0.0.1:{{ irida_port }}"
+  mail_server_host: your-mail-server.local
+  mail_server_protocol: smtp
+  mail_server_email: irida@your-mail-server.local
+  mail_server_username: IRIDA Platform
+  mail_server_password: ""
+  mail_server_port: 25
+  
+
+
+## Tomcat8 variables
+tomcat_conf_file: "/etc/default/tomcat8"
+
+tomcat_conf_params:
+  JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64/"
+  JAVA_OPTS: "\"-Dspring.profiles.active=prod -Dirida.db.profile=prod\""
+  #JAVA_OPTS: "\"-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC -Dspring.profiles.active=prod -Dirida.db.profile=prod\""
+
+irida_war_url: "https://github.com/phac-nml/irida/releases/download/22.01.1/irida-22.01.1.war"
+
+tomcat_webapps: "/var/lib/tomcat8/webapps"
