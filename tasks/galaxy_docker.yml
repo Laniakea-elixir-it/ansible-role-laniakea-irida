@@ -29,3 +29,8 @@
     state: started
     published_ports: "{{ docker_ports_mapping }}"
     volumes: "{{ docker_volume_mapping }}"
+
+- name: Edit galaxy.yml config file
+  template:
+    dest: "{{ galaxy_central_dir }}/config/galaxy.yml"
+    src: galaxy.yml.j2
