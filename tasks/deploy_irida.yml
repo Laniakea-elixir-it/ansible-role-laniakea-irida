@@ -22,7 +22,7 @@
 
 - name: Set environment variables for tomcat8 Servlet container
   template:
-    dest: tomcat_conf_file
+    dest: "{{ tomcat_conf_file }}"
     src: tomcat8.j2
   notify: Restart mysql
 
