@@ -26,8 +26,5 @@
 
 - name: Edit irida.conf and web.conf files
   template:
-    dest: "{{ item.dest }}"
-    src: "{{ item.src }}"
-  with_items:
-   - { dest: "{{ irida_conf_dir }}/irida.conf", src: "irida.conf.j2" }
-   - { dest: "{{ irida_conf_dir }}/web.conf", src: "web.conf.j2" }
+    dest: "{{ irida_conf_dir }}/web.conf"
+    src: web.conf.j2

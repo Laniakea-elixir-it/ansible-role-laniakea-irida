@@ -1,9 +1,19 @@
 ---
 
 - include_tasks: volume_setup.yml
+  when: "'galaxy' in group_names or irida_role == 'galaxy'"
 
 - include_tasks: galaxy_docker.yml
-  #when: "'galaxy' in group_names or irida_role == 'galaxy'"
+  when: "'galaxy' in group_names or irida_role == 'galaxy'"
 
 - include_tasks: deploy_irida.yml
-  #when: "'irida' in group_names or irida_role == 'irida'"
+  when: "'irida' in group_names or irida_role == 'irida'"
+
+- include_tasks: modify_galaxy.yml
+  when: "'galaxy' in group_names or irida_role == 'galaxy'"
+
+- name: Edit irida.conf file
+  template:
+    dest: "{{ irida_conf_dir }}/irida.conf"
+    src: irida.conf.j2
+  notify: Restart tomcat8

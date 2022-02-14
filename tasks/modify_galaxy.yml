@@ -1,0 +1,30 @@
+---
+
+- name: Download user creation script   
+  get_url:
+    url: https://raw.githubusercontent.com/Laniakea-elixir-it/Scripts/python3/galaxy_tools/py3_manage_bootstrap_user.py
+    dest: "{{ galaxy_central_dir }}/manage_bootstrap_user.py"
+
+- name: Create galaxy user with API_KEY to install tools
+  shell:
+    cmd: |
+      docker exec -i {{ galaxy_docker_name }} \
+      /galaxy_venv/bin/python3 {{ galaxy_central_dir }}/manage_bootstrap_user.py \
+      -c {{ galaxy_central_dir }}/config/galaxy.yml create \
+      -u {{ irida_user }} \
+      -e {{ irida_email }} \
+      -p {{ irida_password }}
+  register: manage_bootstrap_user_output
+
+- name: Set irida_api_key variable
+  set_fact:
+    irida_api_key: manage_bootstrap_user_output.stdout
+
+
+#Add the irida toolshed to the toolshed conf file.
+#- name: Add the irida toolshed to the toolshed conf file.
+#  lineinfile:
+#    dest: "{{ galaxy_central_dir }}/config/tool_sheds_conf.xml"
+#    insertbefore: "</tool_sheds>"
+#    line: '<tool_shed name="IRIDA Tool Shed" url="https://irida.corefacility.ca/galaxy-shed/" />'
+#    state: present
