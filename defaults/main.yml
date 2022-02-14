@@ -20,6 +20,9 @@ docker_volume_mapping:
   - "{{ galaxy_central_dir }}:{{ galaxy_central_dir }}"
 
 
+# IRIDA variables
+irida_url: "{{ groups.irida.0 }}"
+
 # IRIDA directories
 irida_data: "{{ irida_dir }}/data"
 irida_sequencing: "{{ irida_data }}/sequencing"
@@ -31,6 +34,10 @@ irida_snapshot: "{{ irida_data }}/snapshot"
 irida_conf_dir: "/etc/irida"
 irida_analytics: "{{ irida_conf_dir }}/analytics"
 irida_plugins: "{{ irida_conf_dir }}/plugins"
+
+# IRIDA nfs directories
+nfs_root: "/srv/nfs"
+irida_nfs_dir: "{{ nfs_root }}/irida"
 
 ## irida.conf file variables
 irida_conf_url: "https://phac-nml.github.io/irida-documentation/administrator/web/config/irida.conf"
@@ -77,9 +84,7 @@ irida_web_conf_params:
 # IRIDA Galaxy user
 irida_user: irida
 irida_email: irida@local.localhost
-irida_password: irida01
-#irida_api_key: "qwertyuiop12345"
-  
+irida_password: irida01  
 
 
 ## Tomcat8 variables

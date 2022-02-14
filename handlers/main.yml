@@ -17,3 +17,9 @@
   service:
     name: nginx
     state: restarted
+
+- name: Restart nfs-server
+  service:
+    name: nfs-server
+    state: restarted
+    enabled: yes

@@ -17,3 +17,4 @@
     dest: "{{ irida_conf_dir }}/irida.conf"
     src: irida.conf.j2
   notify: Restart tomcat8
+  when: "'irida' in group_names or irida_role == 'galaxy'"

@@ -7,7 +7,7 @@
     owner: tomcat8
     group: tomcat8
   with_items:
-    - "{{ irida_dir }}"
+    #- "{{ irida_dir }}"
     - "{{ irida_data }}"
     - "{{ irida_sequencing }}"
     - "{{ irida_reference }}"
