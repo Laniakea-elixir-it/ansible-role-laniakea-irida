@@ -1,14 +1,19 @@
 ---
 
-- name: Update apt
-  apt:
-    update_cache: yes
+- name: Install docker dependencies
+  yum:
+    name: python-docker-py
+    state: present
+
 
 - name: Create docker image directory
   file:
-    path: "{{ docker_dir }}"
+    path: "{{ item }}"
     state: directory
     mode: "775"
+  with_items:
+    - "{{ docker_dir }}"
+    - "{{ galaxy_central_dir }}"
 
 - name: Install docker with image directory on volume
   include_role:
