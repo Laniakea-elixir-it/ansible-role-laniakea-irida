@@ -6,7 +6,3 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions: 18.04
-
-dependencies:
-  - name: indigo-dc.docker
-    version: v2.1.3
