@@ -3,6 +3,12 @@
 - include_tasks: volume_setup.yml
   when: "'galaxy' in group_names or irida_role == 'galaxy'"
 
+- include_tasks: nfs_server.yml
+  when: "'galaxy' in group_names or irida_role == 'galaxy'"
+
+- include_tasks: nfs_client.yml
+  when: "'irida' in group_names or irida_role == 'irida'"
+
 - include_tasks: galaxy_docker.yml
   when: "'galaxy' in group_names or irida_role == 'galaxy'"
 
