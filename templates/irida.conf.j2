@@ -23,21 +23,21 @@ file.processing.process={{ irida_conf_params.file_processing_process }}
 ##### Hibernate driver are listed below (but commented out).
 
 ## MySQL (or MariaDB)
-#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-#spring.jpa.database-plaform.dialect=org.hibernate.dialect.MySQL55Dialect
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.database-plaform.dialect=org.hibernate.dialect.MySQL55Dialect
 # Deprecated as of 22.01
-jdbc.driver=com.mysql.jdbc.driver
-hibernate.dialect=org.hibernate.dialect.MySQL55Dialect
+#jdbc.driver=com.mysql.jdbc.driver
+#hibernate.dialect=org.hibernate.dialect.MySQL55Dialect
 
 ## Database location (you may need to use a different string for different
 ## database vendors).
-#spring.datasource.url={{ irida_conf_params.spring_datasource_url }}
+spring.datasource.url={{ irida_conf_params.spring_datasource_url }}
 # Deprecated as of 22.01
-jdbc.url=jdbc:mysql://localhost:3306/irida_test
+jdbc.url={{ irida_conf_params.spring_datasource_url }}
 
 ## Connection settings:
-#spring.datasource.username={{ irida_conf_params.spring_datasource_username }}
-#spring.datasource.password={{ irida_conf_params.spring_datasource_password }}
+spring.datasource.username={{ irida_conf_params.spring_datasource_username }}
+spring.datasource.password={{ irida_conf_params.spring_datasource_password }}
 # Deprecated as of 22.01
 jdbc.username={{ irida_conf_params.spring_datasource_username }}
 jdbc.password={{ irida_conf_params.spring_datasource_password }}
@@ -50,48 +50,48 @@ liquibase.update.database.schema=true
 ## at the same time as the Liquibase schema update. Liquibase will *not* execute
 ## if this value is set, warnings will be produced in the log. These settings should
 ## only be used in a development environment (**not** production).
-#spring.jpa.hibernate.ddl-auto=
-#spring.jpa.properties.hibernate.hbm2ddl.import_files=
+spring.jpa.hibernate.ddl-auto=
+spring.jpa.properties.hibernate.hbm2ddl.import_files=
 # Deprecated as of 22.01
 #hibernate.hbm2ddl.auto=
 #hibernate.hbm2ddl.import_files=
 
 ## Configure Hibernate to show SQL in the log file. You *probably* don't want
 ## to enable this, but could be useful for debugging.
-#spring.jpa.show-sql=false
+spring.jpa.show-sql=false
 # Deprecated as of 22.01
-hibernate.show_sql=false
+#hibernate.show_sql=false
 
 ## Connection Pool settings:
-#spring.datasource.dbcp2.intial-size=10
-#spring.datasource.dbcp2.max-active=20
-#spring.datasource.dbcp2.test-on-borrow=true
-#spring.datasource.dbcp2.test-on-return=true
-#spring.datasource.dbcp2.test-while-idle=true
+spring.datasource.dbcp2.intial-size=10
+spring.datasource.dbcp2.max-active=20
+spring.datasource.dbcp2.test-on-borrow=true
+spring.datasource.dbcp2.test-on-return=true
+spring.datasource.dbcp2.test-while-idle=true
 # Deprecated as of 22.01
-jdbc.pool.initialSize=10
-jdbc.pool.maxActive=20
-jdbc.pool.testOnBorrow=true
-jdbc.pool.testOnReturn=true
-jdbc.pool.testWhileIdle=true
+#jdbc.pool.initialSize=10
+#jdbc.pool.maxActive=20
+#jdbc.pool.testOnBorrow=true
+#jdbc.pool.testOnReturn=true
+#jdbc.pool.testWhileIdle=true
 
 ## Configure the JDBC library to use this query to verify that a managed
 ## connection is still valid. This may need to change, depending on your database vendor.
-#spring.datasource.dbcp2.validation-query=select 1
+spring.datasource.dbcp2.validation-query=select 1
 # Deprecated as of 22.01
-jdbc.pool.validationQuery=select 1
+#jdbc.pool.validationQuery=select 1
 
-#spring.datasource.dbcp2.max-wait=10000
-#spring.datasource.dbcp2.remove-abandoned=true
-#spring.datasource.dbcp2.log-abandoned=true
-#spring.datasource.dbcp2.remove-abandoned-timeout=60
-#spring.datasource.dbcp2.max-idle=10
+spring.datasource.dbcp2.max-wait=10000
+spring.datasource.dbcp2.remove-abandoned=true
+spring.datasource.dbcp2.log-abandoned=true
+spring.datasource.dbcp2.remove-abandoned-timeout=60
+spring.datasource.dbcp2.max-idle=10
 # Deprecated as of 22.01
-jdbc.pool.maxWait=10000
-jdbc.pool.removeAbandoned=true
-jdbc.pool.logAbandoned=true
-jdbc.pool.removeAbandonedTimeout=60
-jdbc.pool.maxIdle=10
+#jdbc.pool.maxWait=10000
+#jdbc.pool.removeAbandoned=true
+#jdbc.pool.logAbandoned=true
+#jdbc.pool.removeAbandonedTimeout=60
+#jdbc.pool.maxIdle=10
 
 ## Configure the password expiry time in days.  A value of -1 will set no expiry.
 security.password.expiry=-1
