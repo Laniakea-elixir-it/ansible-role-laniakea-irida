@@ -18,7 +18,7 @@
 
 - name: Set irida_api_key variable
   set_fact:
-    irida_api_key: manage_bootstrap_user_output.stdout
+    irida_api_key: "{{ manage_bootstrap_user_output.stdout }}"
 
 
 #Add the irida toolshed to the toolshed conf file.
