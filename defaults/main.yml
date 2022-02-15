@@ -90,6 +90,6 @@ tomcat_conf_params:
   JAVA_OPTS: "\"-Dspring.profiles.active=prod -Dirida.db.profile=prod\""
   #JAVA_OPTS: "\"-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC -Dspring.profiles.active=prod -Dirida.db.profile=prod\""
 
-irida_war_url: "https://github.com/phac-nml/irida/releases/download/22.01.1/irida-22.01.1.war"
+irida_war_url: "https://github.com/phac-nml/irida/releases/download/21.09.2/irida-21.09.2.war"
 
 tomcat_webapps: "/var/lib/tomcat8/webapps"
