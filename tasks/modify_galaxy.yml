@@ -9,7 +9,7 @@
   shell:
     cmd: |
       docker exec -i {{ galaxy_docker_name }} \
-      /galaxy_venv/bin/python3 {{ galaxy_central_dir }}/manage_bootstrap_user.py \
+      {{ galaxy_venv }}/bin/python3 {{ galaxy_central_dir }}/manage_bootstrap_user.py \
       -c {{ galaxy_central_dir }}/config/galaxy.yml create \
       -u {{ irida_user }} \
       -e {{ irida_email }} \
@@ -33,12 +33,12 @@
 
 - name: Install ephemeris in galaxy container
   shell:
-    cmd: docker exec -i {{ galaxy_docker_name }} /galaxy_venv/bin/pip3 install ephemeris
+    cmd: docker exec -i {{ galaxy_docker_name }} {{ galaxy_venv }}/bin/pip3 install ephemeris
 
 - name: Install IRIDA tool shed with ephemeris
   shell:
     cmd: |
-      docker exec -i {{ galaxy_docker_name }} /galaxy_venv/bin/shed-tools install \
+      docker exec -i {{ galaxy_docker_name }} {{ galaxy_venv }}/bin/shed-tools install \
       --toolsfile {{ galaxy_central_dir }}/tool_list.yml \
       --galaxy http://localhost \
       --api_key {{ irida_api_key }}

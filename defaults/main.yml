@@ -17,6 +17,7 @@ galaxy_central_dir: "/export/galaxy-central"
 docker_volume_mapping:
   - "{{ irida_dir }}:{{ irida_dir }}"
   - "{{ galaxy_central_dir }}:{{ galaxy_central_dir }}"
+galaxy_venv: "/galaxy_venv"
 
 
 # IRIDA variables
