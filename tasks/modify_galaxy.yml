@@ -21,11 +21,27 @@
     irida_api_key: "{{ manage_bootstrap_user_output.stdout }}"
   run_once: true
 
+- name: Add IRIDA tool shed to tool_sheds_config.xml file
+  template:
+    dest: "{{ galaxy_central_dir }}/config/tool_sheds_conf.xml"
+    src: tool_sheds_conf.xml.j2
 
-#Add the irida toolshed to the toolshed conf file.
-#- name: Add the irida toolshed to the toolshed conf file.
-#  lineinfile:
-#    dest: "{{ galaxy_central_dir }}/config/tool_sheds_conf.xml"
-#    insertbefore: "</tool_sheds>"
-#    line: '<tool_shed name="IRIDA Tool Shed" url="https://irida.corefacility.ca/galaxy-shed/" />'
-#    state: present
+- name: Copy tool list
+  template:
+    dest: "{{ galaxy_central_dir }}/tool_list.yml"
+    src: tool_list.yml
+
+- name: Install ephemeris in galaxy container
+  shell:
+    cmd: docker exec -i {{ galaxy_docker_name }} /galaxy_venv/bin/pip3 install ephemeris
+
+- name: Install IRIDA tool shed with ephemeris
+  shell:
+    cmd: |
+      docker exec -i {{ galaxy_docker_name }} /galaxy_venv/bin/shed-tools install \
+      --toolsfile {{ galaxy_central_dir }}/tool_list.yml \
+      --galaxy http://localhost \
+      --api_key {{ irida_api_key }}
+  notify:
+    - Restart galaxy
+ 
