@@ -91,8 +91,7 @@ tomcat_conf_file: "/etc/default/tomcat8"
 
 tomcat_conf_params:
   JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64/"
-  JAVA_OPTS: "\"-Dspring.profiles.active=prod -Dirida.db.profile=prod\""
-  #JAVA_OPTS: "\"-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC -Dspring.profiles.active=prod -Dirida.db.profile=prod\""
+  JAVA_OPTS: "-Dspring.profiles.active=prod -Dirida.db.profile=prod -Djava.awt.headless=true -XX:+UseConcMarkSweepGC -Xms1024m -Xmx1024m -XX:+UseConcMarkSweepGC"
 
 irida_war_url: "https://github.com/phac-nml/irida/releases/download/22.01.1/irida-22.01.1.war"
 
