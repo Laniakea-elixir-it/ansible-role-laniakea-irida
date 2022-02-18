@@ -4,7 +4,12 @@
   yum:
     name: python-docker-py
     state: present
+  when: ansible_os_family == 'RedHat'
 
+- name: Install docker dependencies
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
 
 - name: Create docker image directory
   file:
