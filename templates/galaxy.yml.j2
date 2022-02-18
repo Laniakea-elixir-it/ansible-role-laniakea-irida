@@ -126,7 +126,7 @@ galaxy:
   # specifying Galaxy data/cache directories and files (such as the
   # default SQLite database, file_path, etc.). Defaults to `database/`
   # if running Galaxy from source or `<config_dir>/data` otherwise.
-  data_dir: {{ galaxy_central_dir }}/database
+  #data_dir: {{ galaxy_central_dir }}/database
 
   # Top level cache directory. Any other cache directories
   # (tool_cache_data_dir, template_cache_path, etc.) should be
@@ -1558,7 +1558,7 @@ galaxy:
   # One simple way to generate a value for this is with the shell
   # command:   python -c 'from __future__ import print_function; import
   # time; print(time.time())' | md5sum | cut -f 1 -d ' '
-  id_secret: ciao
+  id_secret: {{ lookup('password', '/dev/null length=50 chars=ascii_letters') }}  # create password with command pwgen --secure -N 1 56
 
   # User authentication can be delegated to an upstream proxy server
   # (usually Apache).  The upstream proxy should set a REMOTE_USER
