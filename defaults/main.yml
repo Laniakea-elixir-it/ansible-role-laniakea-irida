@@ -1,5 +1,4 @@
 ---
-irida_role: "" # "galaxy" or "irida"
 
 # Volume setup variables
 device: "/dev/vdb"
@@ -60,7 +59,7 @@ irida_conf_params:
   spring_datasource_username: irida
   spring_datasource_password: irida
   # Galaxy connection information
-  galaxy_execution_url: "http://{{ galaxy_url }}:{{ galaxy_port }}/"
+  galaxy_execution_url: "http://{{ galaxy_url }}:{{ galaxy_port }}"
   galaxy_execution_apiKey: xxxx
   galaxy_execution_email: "{{ irida_email }}"
   galaxy_library_upload_timeout: 3600
