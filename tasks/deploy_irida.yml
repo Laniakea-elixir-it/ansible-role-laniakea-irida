@@ -24,12 +24,16 @@
   template:
     dest: "{{ tomcat_conf_file }}"
     src: tomcat8.j2
-  notify: Restart mysql
+  notify:
+    - Restart mysql
+    - Restart tomcat8
 
 - name: Edit server.xml file for tomcat8
   template:
     dest: /etc/tomcat8/server.xml
     src: server.xml.j2
+  notify:
+    - Restart tomcat8
 
 - name: Download IRIDA .war file
   get_url:
