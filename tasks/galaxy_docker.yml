@@ -35,7 +35,13 @@
     published_ports: "{{ docker_ports_mapping }}"
     volumes: "{{ docker_volume_mapping }}"
 
+- name: Check if galaxy.yml exists
+  stat:
+    path: "{{ galaxy_central_dir }}/config/galaxy.yml"
+  register: galaxy_config_file
+
 - name: Edit galaxy.yml config file
   template:
     dest: "{{ galaxy_central_dir }}/config/galaxy.yml"
     src: galaxy.yml.j2
+  when: not galaxy_config_file.stat.exists
