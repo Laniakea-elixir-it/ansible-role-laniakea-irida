@@ -1,7 +1,7 @@
 ---
 
 - include_tasks: volume_setup.yml
-  when: "'galaxy' in group_names"
+  when: "'irida' in group_names"
 
 - include_tasks: nfs_server.yml
   when: "'irida' in group_names and ansible_play_batch | unique | length > 1"
