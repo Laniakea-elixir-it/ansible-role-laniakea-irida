@@ -1,8 +1,8 @@
 ---
 
-- name: Install nfs-common
-  apt:
-    name: nfs-common
+- name: Install nfs-utils
+  yum:
+    name: nfs-utils
     state: present
 
 - name: Create irida nfs directory
@@ -10,7 +10,12 @@
     path: "{{ irida_dir }}"
     state: directory
 
-- name: Mount nfs in fstab
-  lineinfile:
-    path: "/etc/fstab"
-    line: "{{ galaxy_url }}:/irida {{ irida_dir }} nfs"
+- name: Flush handlers, restart nfs-client
+  meta: flush_handlers
+
+- name: Mount nfs
+  mount:
+    path: "{{ irida_dir }}"
+    src: "{{ irida_url }}:{{ irida_dir }}" 
+    fstype: nfs
+    state: mounted

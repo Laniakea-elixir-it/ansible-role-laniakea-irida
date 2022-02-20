@@ -24,6 +24,12 @@
     state: restarted
     enabled: yes
 
+- name: Restart nfs-client
+  service:
+    name: nfs
+    state: restarted
+    enabled: yes
+
 - name: Restart galaxy
   docker_container:
     name: "{{ galaxy_docker_name }}"
