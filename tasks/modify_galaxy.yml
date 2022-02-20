@@ -43,7 +43,7 @@
       --galaxy http://localhost \
       --api_key {{ irida_api_key }}
   register: command_result
-  failed_when: "'Errored repositories (0)' not in command_result.stdout"
+  failed_when: "'Errored repositories (0)' not in command_result.stderr"
   notify:
     - Restart galaxy
  
