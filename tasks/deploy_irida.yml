@@ -28,6 +28,13 @@
     - Restart mysql
     - Restart tomcat8
 
+- name: Set environment variables for tomcat8 in setenv.sh
+  template:
+    dest: /usr/share/tomcat8/bin/setenv.sh
+    src: setenv.sh
+  notify:
+    - Restart tomcat8
+
 - name: Edit server.xml file for tomcat8
   template:
     dest: /etc/tomcat8/server.xml
