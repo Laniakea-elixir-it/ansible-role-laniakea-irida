@@ -1,14 +1,15 @@
 ---
+# Install Irida and Galaxy on different hosts, or everything on the same one:
+# set to irida to install irida.
+# set to galaxy to install galaxy.
+# set to all to install both
+type_of_node: irida
+irida_server_ip: ''
+galaxy_wn_ip: ''
 
-# Volume setup variables
-device: "/dev/vdb"
-fstype: ext4
-volume_mountpoint: "/export"
-irida_dir: "{{ volume_mountpoint }}/irida"
-docker_dir: "{{ volume_mountpoint }}/docker_images"
-
+#_______________________________
 # Galaxy docker variables
-galaxy_url: "{{ 'localhost' if groups.galaxy.0==groups.irida.0 else groups.galaxy.0 }}"
+galaxy_url: "{{ 'localhost' if irida_server_ip==galaxy_wn_ip else galaxy_wn_ip }}"
 galaxy_port: "48888"
 galaxy_docker_name: galaxy-irida-20.09
 galaxy_docker_image: "phacnml/galaxy-irida-20.09"
@@ -19,9 +20,9 @@ docker_volume_mapping:
   - "{{ galaxy_central_dir }}:{{ galaxy_central_dir }}"
 galaxy_venv: "/galaxy_venv"
 
-
+#_______________________________
 # IRIDA variables
-irida_url: "{{ groups.irida.0 }}"
+irida_url: "{{ irida_server_ip }}"
 
 # IRIDA directories
 irida_data: "{{ irida_dir }}/data"
