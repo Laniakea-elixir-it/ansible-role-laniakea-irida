@@ -6,6 +6,7 @@
 type_of_node: irida
 irida_server_ip: ''
 galaxy_wn_ip: ''
+export_dir: /export
 irida_dir: '{{ export_dir }}/irida'
 docker_dir: '{{ export_dir }}/docker-images'
 
