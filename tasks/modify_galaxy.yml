@@ -21,7 +21,7 @@
     irida_api_key: "{{ manage_bootstrap_user_output.stdout }}"
   run_once: true
 
-- name: Share irida_api_key on nfs
+- name: Save and share irida_api_key on nfs
   copy:
     content: '{{ irida_api_key }}'
     dest: '{{ irida_dir }}'
