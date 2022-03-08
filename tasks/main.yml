@@ -1,14 +1,4 @@
 ---
-
-#- include_tasks: volume_setup.yml
-#  when: "'irida' in group_names"
-
-#- include_tasks: nfs_server.yml
-#  when: "'irida' in group_names and ansible_play_batch | unique | length > 1"
-
-#- include_tasks: nfs_client.yml
-#  when: "'galaxy' in group_names and ansible_play_batch | unique | length > 1"
-
 - name: Install Irida and Galaxy on the same host
   set_fact:
     type_of_node: 'all'
@@ -18,12 +8,12 @@
   when: type_of_node == 'galaxy' or
         type_of_node == 'all'
 
-- include_tasks: deploy_irida.yml
-  when: type_of_node == 'irida' or
-        type_of_node == 'all'
-
 - include_tasks: modify_galaxy.yml
   when: type_of_node == 'galaxy' or
+        type_of_node == 'all'
+
+- include_tasks: deploy_irida.yml
+  when: type_of_node == 'irida' or
         type_of_node == 'all'
 
 - set_fact:
