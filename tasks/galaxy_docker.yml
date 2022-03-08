@@ -35,14 +35,7 @@
     published_ports: "{{ docker_ports_mapping }}"
     volumes: "{{ docker_volume_mapping }}"
 
-- name: Wait until galaxy web is avaiable
-  uri:
-    url: "http://localhost:48888"
-    status_code: 200
-  register: result
-  until: result.status == 200
-  retries: 300
-  delay: 60
+- include_tasks: wait_galaxy_web.yml
 
 - name: 'Wait galaxy-central correctly mounted'
   wait_for:

@@ -22,11 +22,7 @@
     state: started
     restart: yes
 
-- name: 'Wait Galaxy after restart'
-  wait_for:
-    host: 127.0.0.1
-    port: '48888'
-    timeout: 300
+- include_tasks: wait_galaxy_web.yml
 
 - name: Set irida_api_key variable
   set_fact:
@@ -36,7 +32,7 @@
 - name: Save and share irida_api_key on nfs
   copy:
     content: '{{ irida_api_key }}'
-    dest: '{{ irida_dir }}'
+    dest: '{{ irida_dir }}/irida_galaxy_api_key.txt'
 
 - name: Add IRIDA tool shed to tool_sheds_config.xml file
   template:
