@@ -35,11 +35,14 @@
     published_ports: "{{ docker_ports_mapping }}"
     volumes: "{{ docker_volume_mapping }}"
 
-- name: 'Wait Galaxy'
-  wait_for:
-    host: 127.0.0.1
-    port: '48888'
-    timeout: 300
+- name: Wait until galaxy web is avaiable
+  uri:
+    url: "http://localhost:48888"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 300
+  delay: 60
 
 - name: 'Wait galaxy-central correctly mounted'
   wait_for:
