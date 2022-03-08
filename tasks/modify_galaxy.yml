@@ -3,7 +3,7 @@
 - name: Download user creation script   
   get_url:
     url: https://raw.githubusercontent.com/Laniakea-elixir-it/Scripts/python3/galaxy_tools/py3_manage_bootstrap_user.py
-    dest: "{{ galaxy_central_dir }}/manage_bootstrap_user.py"
+    dest: "{{ host_galaxy_central_dir }}/manage_bootstrap_user.py"
 
 - name: Create galaxy user with API_KEY to install tools
   shell:
@@ -28,12 +28,12 @@
 
 - name: Add IRIDA tool shed to tool_sheds_config.xml file
   template:
-    dest: "{{ galaxy_central_dir }}/config/tool_sheds_conf.xml"
+    dest: "{{ host_galaxy_central_dir }}/config/tool_sheds_conf.xml"
     src: tool_sheds_conf.xml.j2
 
 - name: Copy tool list
   template:
-    dest: "{{ galaxy_central_dir }}/tool_list.yml"
+    dest: "{{ host_galaxy_central_dir }}/tool_list.yml"
     src: tool_list.yml
 
 - name: Install ephemeris in galaxy container

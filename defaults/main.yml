@@ -9,7 +9,7 @@ galaxy_wn_ip: ''
 export_dir: /export
 irida_dir: '{{ export_dir }}/irida' # nfs mountpoint here
 galaxy_storage_dir: '{{ export_dir }}/galaxy' # storage mountpoint here. 
-docker_dir: '{{ export_dir }}/galaxy/docker-images' # docker images here.
+docker_dir: '{{ galaxy_storage_dir }}/docker-images' # docker images here.
 
 #_______________________________
 # Galaxy docker variables
@@ -18,10 +18,11 @@ galaxy_port: "48888"
 galaxy_docker_name: galaxy-irida-20.09
 galaxy_docker_image: "phacnml/galaxy-irida-20.09"
 docker_ports_mapping: "{{ galaxy_port }}:80"
-galaxy_central_dir: "{{ galaxy_storage_dir }}/galaxy-central" 
+galaxy_central_dir: "/export/galaxy-central" # Docker galaxy-central directory
+host_galaxy_central_dir: "{{ galaxy_storage_dir}}/galaxy-central" # Host galaxy-central directory
 docker_volume_mapping:
   - "{{ irida_dir }}:{{ irida_dir }}"
-  - "{{ galaxy_central_dir }}:/export/galaxy-central"
+  - "{{ host_galaxy_central_dir }}:{{ {{ galaxy_central_dir }}"
 galaxy_venv: "/galaxy_venv"
 
 #_______________________________
