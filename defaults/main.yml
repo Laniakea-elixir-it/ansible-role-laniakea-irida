@@ -22,7 +22,7 @@ galaxy_central_dir: "/export/galaxy-central" # Docker galaxy-central directory
 host_galaxy_central_dir: "{{ galaxy_storage_dir}}/galaxy-central" # Host galaxy-central directory
 docker_volume_mapping:
   - "{{ irida_dir }}:{{ irida_dir }}"
-  - "{{ host_galaxy_central_dir }}:{{ {{ galaxy_central_dir }}"
+  - "{{ host_galaxy_central_dir }}:{{ galaxy_central_dir }}"
 galaxy_venv: "/galaxy_venv"
 
 #_______________________________
