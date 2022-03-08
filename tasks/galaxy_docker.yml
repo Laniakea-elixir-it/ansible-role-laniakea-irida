@@ -18,7 +18,7 @@
     mode: "775"
   with_items:
     - "{{ docker_dir }}"
-    - "{{ galaxy_central_dir }}"
+    - "{{ host_galaxy_central_dir }}"
 
 - name: Install docker with image directory on volume
   include_role:
@@ -43,15 +43,15 @@
 
 - name: 'Wait galaxy-central correctly mounted'
   wait_for:
-    path: '{{ galaxy_central_dir }}/config/galaxy.yml.sample'
+    path: '{{ host_galaxy_central_dir }}/config/galaxy.yml.sample'
 
 - name: Check if galaxy.yml exists
   stat:
-    path: "{{ galaxy_central_dir }}/config/galaxy.yml"
+    path: "{{ host_galaxy_central_dir }}/config/galaxy.yml"
   register: galaxy_config_file
 
 - name: Edit galaxy.yml config file
   template:
-    dest: "{{ galaxy_central_dir }}/config/galaxy.yml"
+    dest: "{{ host_galaxy_central_dir }}/config/galaxy.yml"
     src: galaxy.yml.j2
   when: not galaxy_config_file.stat.exists
