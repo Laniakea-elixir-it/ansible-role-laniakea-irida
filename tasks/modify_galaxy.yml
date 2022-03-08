@@ -30,9 +30,9 @@
   run_once: true
 
 - name: Save and share irida_api_key on nfs
-  copy:
-    content: '{{ irida_api_key }}'
-    dest: '{{ irida_dir }}/irida_galaxy_api_key.txt'
+  template:
+    dest: '{{ irida_dir }}/irida_galaxy_user.ini'
+    src: irida_galaxy_user.j2
 
 - name: Add IRIDA tool shed to tool_sheds_config.xml file
   template:
