@@ -16,6 +16,18 @@
       -p {{ irida_password }}
   register: manage_bootstrap_user_output
 
+- name: Restart Galaxy docker to make changes effective
+  docker_container:
+    name: "{{ galaxy_docker_name }}"
+    state: started
+    restart: yes
+
+- name: 'Wait Galaxy after restart'
+  wait_for:
+    host: 127.0.0.1
+    port: '48888'
+    timeout: 300
+
 - name: Set irida_api_key variable
   set_fact:
     irida_api_key: "{{ manage_bootstrap_user_output.stdout }}"
