@@ -41,6 +41,10 @@
     port: '48888'
     timeout: 300
 
+- name: 'Wait galaxy-central correctly mounted'
+  wait_for:
+    path: '{{ galaxy_central_dir }}/config/galaxy.yml.sample'
+
 - name: Check if galaxy.yml exists
   stat:
     path: "{{ galaxy_central_dir }}/config/galaxy.yml"
