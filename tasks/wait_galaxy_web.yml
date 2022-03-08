@@ -1,4 +1,4 @@
-- name: wait until galaxy web is avaiable
+- name: Wait until Galaxy web is avaiable
   uri:
     url: "http://localhost:48888"
     status_code: 200
