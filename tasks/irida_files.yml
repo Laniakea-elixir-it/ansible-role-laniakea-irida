@@ -28,3 +28,11 @@
   template:
     dest: "{{ irida_conf_dir }}/web.conf"
     src: web.conf.j2
+
+- set_fact:
+    irida_api_key: "{{ lookup('ini', 'irida_api_key section=irida_galaxy_user file=/export/irida_galaxy_user.ini') }}"
+
+- name: Edit irida.conf file
+  template:
+    dest: "{{ irida_conf_dir }}/irida.conf"
+    src: irida.conf.j2

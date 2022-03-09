@@ -28,10 +28,12 @@
   with_items: 
     - { regexp: "^character-set-server\\s*=.*", line: "character-set-server = utf8" }
     - { regexp: "^collation-server\\s*=.*", line: "collation-server = utf8_general_ci"}
-  notify: Restart mysql
 
-- name: Flush handlers, restart mysql
-  meta: flush_handlers
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
 
 - name: Grant privileges on irida db to irida user
   mysql_user:
@@ -46,4 +48,3 @@
   mysql_db:
     name: "irida"
     state: present
-  notify: Restart mysql

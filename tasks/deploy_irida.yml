@@ -24,23 +24,22 @@
   template:
     dest: "{{ tomcat_conf_file }}"
     src: tomcat8.j2
-  notify:
-    - Restart mysql
-    - Restart tomcat8
 
 - name: Set environment variables for tomcat8 in setenv.sh
   template:
     dest: /usr/share/tomcat8/bin/setenv.sh
     src: setenv.sh
-  notify:
-    - Restart tomcat8
 
 - name: Edit server.xml file for tomcat8
   template:
     dest: /etc/tomcat8/server.xml
     src: server.xml.j2
-  notify:
-    - Restart tomcat8
+
+- name: Restart tomcat8
+  service:
+    name: tomcat8
+    state: restarted
+    enabled: yes
 
 - name: Download IRIDA .war file
   get_url:
@@ -48,6 +47,5 @@
     dest: "{{ tomcat_webapps }}/irida.war"
     owner: tomcat8
     group: tomcat8
-  notify: Restart tomcat8
 
 - include_tasks: nginx.yml
