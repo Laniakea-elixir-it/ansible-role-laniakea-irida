@@ -49,3 +49,5 @@
     group: tomcat8
 
 - include_tasks: nginx.yml
+
+- include_tasks: wait_irida_web.yml
