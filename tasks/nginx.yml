@@ -9,17 +9,19 @@
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
-  notify: Restart nginx
 
 - name: Configure nginx
   template:
     dest: /etc/nginx/sites-available/irida
     src: nginx.conf.j2
-  notify: Restart nginx
 
 - name: Enable vhosts
   file:
     src: /etc/nginx/sites-available/irida
     dest: /etc/nginx/sites-enabled/irida
     state: link
-  notify: Restart nginx
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
