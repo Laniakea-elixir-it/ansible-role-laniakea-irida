@@ -4,8 +4,8 @@ laniakea.irida
 This role installs and configure Galaxy and the IRIDA web interface using as reference the [IRIDA documentation](https://phac-nml.github.io/irida-documentation/).
 Galaxy is installed using the [phac-nml docker image](https://hub.docker.com/r/phacnml/galaxy-irida-20.09).
 Two configurations are possible:
-* Galaxy and IRIDA on the same VM: this is obtained by setting `type_of_node: all` and both `irida_server_ip` and `galaxy_wn_ip` to the same IP. This configuration has been tested on Ubuntu 20.04
-* Galaxy and IRIDA on two VMs: this is obtained by running the role on each VM, setting `type_of_node` to `galaxy` and `irida` respectively. When this configuration is set, NFS is used to share data between Galaxy and IRIDA, stored in the export directory. This configuration has been tested on Ubuntu 20.04 for IRIDA and CentOS7 for Galaxy.
+* Galaxy and IRIDA on the same VM: this is obtained by setting `type_of_node: all` and both `irida_server_ip` and `galaxy_wn_ip` to the same IP. This configuration has been tested on Ubuntu 18.04
+* Galaxy and IRIDA on two VMs: this is obtained by running the role on each VM, setting `type_of_node` to `galaxy` and `irida` respectively. When this configuration is set, NFS is used to share data between Galaxy and IRIDA, stored in the export directory. This configuration has been tested on Ubuntu 18.04 for IRIDA and CentOS7 for Galaxy.
 
 
 Role Variables
