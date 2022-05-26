@@ -30,7 +30,7 @@
     src: web.conf.j2
 
 - set_fact:
-    irida_api_key: "{{ lookup('ini', 'irida_api_key section=irida_galaxy_user file=/export/irida_galaxy_user.ini') }}"
+    irida_api_key: "{{ lookup('ini', 'irida_api_key section=irida_galaxy_user file={{ irida_dir }}/irida_galaxy_user.ini') }}"
 
 - name: Edit irida.conf file
   template:
