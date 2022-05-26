@@ -20,11 +20,18 @@
     - "{{ docker_dir }}"
     - "{{ host_galaxy_central_dir }}"
 
+- name: Install docker python package
+  include_role:
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages: [docker]
+
 - name: Install docker with image directory on volume
   include_role:
-    name: indigo-dc.docker
+    name: geerlingguy.docker
   vars:
-    docker_config:  { "data-root": "{{ docker_dir }}" }
+    docker_install_compose: false
+    docker_daemon_options: { "data-root": "{{ docker_dir }}" }
 
 - name: Run galaxy container
   docker_container:

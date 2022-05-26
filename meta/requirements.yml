@@ -1,2 +1,4 @@
-- name: indigo-dc.docker
-  version: v2.1.3
+- name: geerlingguy.docker
+  version: 4.2.2
+- name: geerlingguy.pip
+  version: 1.3.0
