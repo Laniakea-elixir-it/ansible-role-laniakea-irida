@@ -24,6 +24,7 @@
   include_role:
     name: geerlingguy.pip
   vars:
+    pip_package: python3-pip
     pip_install_packages: [docker]
 
 - name: Install docker with image directory on volume
