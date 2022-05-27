@@ -31,7 +31,7 @@
 
 - name: Read irida_api_key from ini file
   shell:
-    cmd: "awk -F '=' '/irida_api_key/ {print $2}' {{ irida_dir }}/irida_galaxy_user.ini | tr -d ' '"
+    cmd: "awk -F '=' '/irida_api_key/ {print $2}' {{ export_dir }}/irida_galaxy_user.ini | tr -d ' '"
   register: ini_parsing
 
 - name: Set irida_api_key variable
